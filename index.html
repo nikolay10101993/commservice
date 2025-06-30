@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ООО "Коммунальный Сервис" - Презентация</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            padding: 60px;
+            background: white;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Навигация */
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .slide-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Стили для слайдов */
+        .title-slide {
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .title-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-slide .subtitle {
+            font-size: 1.8em;
+            opacity: 0.9;
+        }
+
+        .content-slide h2 {
+            color: #4CAF50;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .content-slide h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #4CAF50;
+            border-radius: 2px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: #f8f8f8;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: #4CAF50;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .service-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .service-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            color: white;
+            border-radius: 20px;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .client-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .client-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .client-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .client-card p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .contact-info h3 {
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            font-size: 1.2em;
+            margin: 15px 0;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        ul li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .highlight {
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .gov-badge {
+            display: inline-block;
+            background: #2196F3;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px;
+        }
+        .infographic-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .infographic-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+
+        .timeline-item {
+            background: white;
+            border: 3px solid #4CAF50;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item .year {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .timeline-item .desc {
+            font-size: 0.8em;
+            color: #666;
+            text-align: center;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .process-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #4CAF50;
+        }
+
+        .process-icon {
+            width: 80px;
+            height: 80px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 2em;
+            color: white;
+        }
+
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #4CAF50 0deg 126deg,
+                #2196F3 126deg 360deg
+            );
+            margin: 20px auto;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .pie-chart::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Слайд 1: Титульный -->
+        <div class="slide active title-slide">
+            <h1>ООО «Коммунальный Сервис»</h1>
+            <p class="subtitle">Профессиональная эксплуатация недвижимости</p>
+            <div style="margin-top: 40px; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 20px; display: inline-block;">
+                <p style="font-size: 1.5em; font-weight: bold;">Надежный исполнитель госконтрактов</p>
+                <p style="font-size: 1.3em; margin-top: 10px;">Работаем по 44-ФЗ и 223-ФЗ</p>
+            </div>
+            <p style="margin-top: 30px; font-size: 1.2em;">С 2018 года на рынке</p>
+        </div>
+
+        <!-- Слайд 2: О компании -->
+        <div class="slide content-slide">
+            <h2>О компании</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="icon-box">📊</div>
+                    <h3>Наша история</h3>
+                    <p>7 лет успешной работы на рынке эксплуатации зданий. Постоянное развитие и расширение спектра услуг в соответствии с требованиями рынка.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box">🎯</div>
+                    <h3>Наша миссия</h3>
+                    <p>Создание системы эффективной эксплуатации и технического обслуживания для достижения максимального уровня комфорта наших клиентов.</p>
+                </div>
+            </div>
+            
+            <h3 style="text-align: center; margin-top: 40px; color: #4CAF50;">Наш путь развития</h3>
+            <div class="infographic-timeline">
+                <div class="timeline-item">
+                    <div class="year">2018</div>
+                    <div class="desc">Основание компании</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2020</div>
+                    <div class="desc">Первые госконтракты</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2022</div>
+                    <div class="desc">100+ млн контрактов</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2025</div>
+                    <div class="desc">491.8 млн выполнено</div>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number">491.8</div>
+                    <div>млн руб. госконтрактов</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">50.1</div>
+                    <div>млн руб. чистая прибыль</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">7+</div>
+                    <div>лет на рынке</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 3: Наши услуги -->
+        <div class="slide content-slide">
+            <h2>Наши услуги</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="icon-box">⚡</div>
+                    <h3>Инженерные системы</h3>
+                    <ul>
+                        <li>Электроснабжение</li>
+                        <li>Водоснабжение</li>
+                        <li>Теплоснабжение</li>
+                        <li>Вентиляция</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="icon-box">🏢</div>
+                    <h3>Эксплуатация зданий</h3>
+                    <ul>
+                        <li>Комплексная уборка</li>
+                        <li>Обслуживание территорий</li>
+                        <li>Промышленный альпинизм</li>
+                        <li>Мойка фасадов</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="icon-box">🔧</div>
+                    <h3>Специальные работы</h3>
+                    <ul>
+                        <li>Пожарная сигнализация</li>
+                        <li>Охранные системы</li>
+                        <li>Грузоподъемные механизмы</li>
+                        <li>Слаботочные сети</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="text-align: center; margin-top: 40px; color: #4CAF50;">Процесс работы с заказчиком</h3>
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-icon">📞</div>
+                    <h4>Заявка</h4>
+                    <p>Прием и анализ требований</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon">📋</div>
+                    <h4>КП и договор</h4>
+                    <p>Подготовка документов</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon">👷</div>
+                    <h4>Выполнение</h4>
+                    <p>Качественная реализация</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-icon">✅</div>
+                    <h4>Контроль</h4>
+                    <p>24/7 поддержка</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 4: Преимущества -->
+        <div class="slide content-slide">
+            <h2>Почему госзаказчики выбирают нас</h2>
+            <div class="service-item" style="border-left-color: #2196F3; border-left-width: 6px;">
+                <h3>🏛️ Полное соответствие 44-ФЗ и 223-ФЗ</h3>
+                <p>Вся разрешительная документация, лицензии, допуски СРО</p>
+            </div>
+            <div class="service-item" style="border-left-color: #FF9800; border-left-width: 6px;">
+                <h3>📊 Безупречная репутация</h3>
+                <p>491.8 млн руб. выполненных госконтрактов. За 7 лет работы НИ РАЗУ не включались в РНП. Отсутствие претензий от заказчиков</p>
+            </div>
+            <div class="service-item">
+                <h3>✅ Финансовая надежность</h3>
+                <p>Прибыль 50.1 млн руб., уплачено налогов 28.2 млн руб. Банковские гарантии и страхование ответственности</p>
+            </div>
+            <div class="service-item">
+                <h3>⚡ Оперативность и качество</h3>
+                <p>100% контрактов исполнено в срок. Круглосуточная диспетчерская служба. Аварийные бригады 24/7</p>
+            </div>
+            <div class="service-item">
+                <h3>📋 Полный пакет документов</h3>
+                <p>Вся исполнительная документация в соответствии с требованиями. Электронный документооборот</p>
+            </div>
+        </div>
+
+        <!-- Слайд 5: Работа с госзаказчиками -->
+        <div class="slide content-slide">
+            <h2>Опыт работы с государственными заказчиками</h2>
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h3 class="highlight">Работаем по 44-ФЗ и 223-ФЗ</h3>
+            </div>
+            <div class="grid-2">
+                <div class="card" style="background: #f8f8f8; border: 2px solid #4CAF50;">
+                    <div class="icon-box" style="background: #4CAF50; color: white;">📋</div>
+                    <h3 style="color: #4CAF50;">44-ФЗ</h3>
+                    <p style="font-size: 1.1em; color: #333;">Полное соответствие требованиям закона о контрактной системе</p>
+                    <ul style="margin-top: 20px;">
+                        <li style="color: #666;">Опыт участия в электронных аукционах</li>
+                        <li style="color: #666;">Исполнение контрактов без нареканий</li>
+                        <li style="color: #666;">Вся необходимая документация</li>
+                    </ul>
+                </div>
+                <div class="card" style="background: #f8f8f8; border: 2px solid #2196F3;">
+                    <div class="icon-box" style="background: #2196F3; color: white;">🏛️</div>
+                    <h3 style="color: #2196F3;">223-ФЗ</h3>
+                    <p style="font-size: 1.1em; color: #333;">Успешная работа с госкорпорациями и автономными учреждениями</p>
+                    <ul style="margin-top: 20px;">
+                        <li style="color: #666;">Гибкие условия сотрудничества</li>
+                        <li style="color: #666;">Опыт работы с крупными заказчиками</li>
+                        <li style="color: #666;">Соответствие положениям о закупках</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px;">
+                <div style="text-align: center;">
+                    <h3 style="color: #4CAF50; margin-bottom: 20px;">Структура портфеля</h3>
+                    <div class="pie-chart"></div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #4CAF50;"></div>
+                            <span>44-ФЗ (35%)</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #2196F3;"></div>
+                            <span>223-ФЗ (65%)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats-container" style="flex-direction: column; margin: 0;">
+                    <div class="stat-box" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);">
+                        <div class="stat-number">491.8</div>
+                        <div>млн руб. выполненных госконтрактов</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);">
+                        <div class="stat-number">0</div>
+                        <div>включений в РНП за всю историю</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);">
+                        <div class="stat-number">100%</div>
+                        <div>довольных заказчиков</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 6: Наши клиенты -->
+        <div class="slide content-slide">
+            <h2>Наши государственные заказчики</h2>
+            <div style="text-align: center; margin-bottom: 30px;">
+                <p style="font-size: 1.2em; color: #666;">Мы гордимся доверием федеральных и региональных органов власти</p>
+            </div>
+            <div class="client-grid">
+                <div class="client-card">
+                    <h4>ГБУ «ГлавАПУ»</h4>
+                    <span class="gov-badge">44-ФЗ</span>
+                    <p>Полный комплекс эксплуатационных услуг, круглосуточный контроль систем</p>
+                </div>
+                <div class="client-card">
+                    <h4>Комитет по архитектуре г. Москвы</h4>
+                    <span class="gov-badge">44-ФЗ</span>
+                    <p>Комплексное техническое обслуживание</p>
+                </div>
+                <div class="client-card">
+                    <h4>ФГБУ «Комбинат питания Кремлевский»</h4>
+                    <span class="gov-badge">44-ФЗ</span>
+                    <p>Полный спектр эксплуатационных услуг</p>
+                </div>
+                <div class="client-card">
+                    <h4>Школа-студия при ансамбле им. Игоря Моисеева</h4>
+                    <span class="gov-badge">223-ФЗ</span>
+                    <p>Техническое обслуживание и эксплуатация</p>
+                </div>
+                <div class="client-card">
+                    <h4>АО «Аксис инвестиции»</h4>
+                    <span class="gov-badge">223-ФЗ</span>
+                    <p>Комплексные эксплуатационные услуги</p>
+                </div>
+                <div class="client-card">
+                    <h4>ООО «Кинофорум»</h4>
+                    <span class="gov-badge">223-ФЗ</span>
+                    <p>Полное техническое сопровождение</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Слайд 7: Контакты -->
+        <div class="slide content-slide">
+            <h2>Свяжитесь с нами</h2>
+            <div class="contact-info">
+                <h3>Мы готовы к сотрудничеству!</h3>
+                <div class="contact-item">📍 Москва, Воронцовский пер., д. 5/7</div>
+                <div class="contact-item">📞 +7 (495) 222-41-84</div>
+                <div class="contact-item">✉️ comservis_2018@mail.ru</div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <h3 class="highlight">Создадим комфорт в вашем здании вместе!</h3>
+            </div>
+        </div>
+
+        <!-- Навигация -->
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Назад</button>
+            <div class="slide-indicator">
+                <span id="currentSlide">1</span> / <span id="totalSlides">7</span>
+            </div>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Далее →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+            
+            slides[currentSlide].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+            
+            // Управление кнопками
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            showSlide(currentSlide);
+        }
+
+        // Управление с клавиатуры
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) changeSlide(1);
+            if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
+        });
+
+        // Инициализация
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
