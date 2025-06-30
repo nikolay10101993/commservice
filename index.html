@@ -9,52 +9,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        /* Адаптивность для мобильных */
-        @media (max-width: 768px) {
-            .slide {
-                padding: 30px 20px;
-            }
-            
-            .title-slide h1 {
-                font-size: 2.5em;
-            }
-            
-            .content-slide h2 {
-                font-size: 2em;
-                margin-bottom: 30px;
-            }
-            
-            .grid-2, .grid-3 {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .stat-box {
-                min-width: auto;
-                padding: 25px;
-            }
-            
-            .stat-number {
-                font-size: 2.5em;
-            }
-            
-            .timeline-item {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .process-flow {
-                flex-direction: column;
-                gap: 30px;
-            }
-            
-            .process-step:not(:last-child)::after {
-                content: '↓';
-                right: 50%;
-                top: auto;
-                bottom: -25px;
-                transform: translateX(50%);
-            }
         }
 
         body {
@@ -256,18 +210,55 @@
             font-size: 2.5em;
         }
 
+        /* Декоративные элементы */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .slide::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(139, 195, 74, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
         .service-item {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #4CAF50;
-            margin-bottom: 15px;
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 8px solid #4CAF50;
+            margin-bottom: 25px;
             transition: all 0.3s;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            font-size: 1.2em;
         }
 
         .service-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(20px);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-item h3 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-item h3 .emoji {
+            font-size: 1.4em;
         }
 
         .stats-container {
@@ -384,9 +375,10 @@
 
         ul li {
             position: relative;
-            padding-left: 30px;
-            margin-bottom: 15px;
-            line-height: 1.6;
+            padding-left: 35px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1.1em;
         }
 
         ul li:before {
@@ -416,6 +408,7 @@
             font-weight: bold;
             box-shadow: 0 2px 10px rgba(33, 150, 243, 0.3);
         }
+
         .infographic-timeline {
             display: flex;
             justify-content: space-between;
@@ -437,29 +430,36 @@
 
         .timeline-item {
             background: white;
-            border: 3px solid #4CAF50;
+            border: 4px solid #4CAF50;
             border-radius: 50%;
-            width: 120px;
-            height: 120px;
+            width: 160px;
+            height: 160px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
             z-index: 1;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
         }
 
         .timeline-item .year {
-            font-size: 1.2em;
+            font-size: 1.5em;
             font-weight: bold;
             color: #4CAF50;
         }
 
         .timeline-item .desc {
-            font-size: 0.8em;
+            font-size: 1em;
             color: #666;
             text-align: center;
+            padding: 0 10px;
         }
 
         .process-flow {
@@ -486,16 +486,27 @@
         }
 
         .process-icon {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background: #4CAF50;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 2em;
+            margin: 0 auto 20px;
+            font-size: 2.5em;
             color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .process-step h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            font-size: 1.1em;
+            color: #666;
         }
 
         .pie-chart {
@@ -541,6 +552,54 @@
             width: 25px;
             height: 25px;
             border-radius: 5px;
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            
+            .title-slide h1 {
+                font-size: 2.5em;
+            }
+            
+            .content-slide h2 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+            
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .stat-box {
+                min-width: auto;
+                padding: 25px;
+            }
+            
+            .stat-number {
+                font-size: 2.5em;
+            }
+            
+            .timeline-item {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .process-step:not(:last-child)::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -25px;
+                transform: translateX(50%);
+            }
         }
     </style>
 </head>
@@ -596,9 +655,6 @@
                     <p style="margin: 0 0 20px 0; font-size: 1.3em;">Буду рад связи в удобное время</p>
                     <p style="margin: 0; font-size: 1.4em;">
                         <strong>📞 +7 (495) 222-41-84 | ✉️ comservis_2018@mail.ru</strong>
-                    </p>
-                    <p style="margin: 15px 0 0 0; font-size: 1.3em;">
-                        <strong>📱 +7 (966) 123-36-67 Николай Пухов</strong>
                     </p>
                 </div>
             </div>
@@ -720,25 +776,25 @@
         <!-- Слайд 5: Преимущества -->
         <div class="slide content-slide">
             <h2>Почему госзаказчики выбирают нас</h2>
-            <div class="service-item" style="border-left-color: #2196F3; border-left-width: 6px;">
-                <h3>🏛️ Полное соответствие 44-ФЗ и 223-ФЗ</h3>
-                <p>Вся разрешительная документация, лицензии, допуски СРО</p>
+            <div class="service-item" style="border-left-color: #2196F3; border-left-width: 8px; padding: 40px;">
+                <h3 style="font-size: 1.8em; margin-bottom: 15px;">🏛️ Полное соответствие 44-ФЗ и 223-ФЗ</h3>
+                <p style="font-size: 1.4em;">Вся разрешительная документация, лицензии, допуски СРО</p>
             </div>
-            <div class="service-item" style="border-left-color: #FF9800; border-left-width: 6px;">
-                <h3>📊 Безупречная репутация</h3>
-                <p>491.8 млн руб. выполненных госконтрактов. За 7 лет работы НИ РАЗУ не включались в РНП. Отсутствие претензий от заказчиков</p>
+            <div class="service-item" style="border-left-color: #FF9800; border-left-width: 8px; padding: 40px;">
+                <h3 style="font-size: 1.8em; margin-bottom: 15px;">📊 Безупречная репутация</h3>
+                <p style="font-size: 1.4em;">491.8 млн руб. выполненных госконтрактов. За 7 лет работы НИ РАЗУ не включались в РНП. Отсутствие претензий от заказчиков</p>
             </div>
-            <div class="service-item">
-                <h3>✅ Финансовая надежность</h3>
-                <p>Прибыль 50.1 млн руб., уплачено налогов 28.2 млн руб. Банковские гарантии и страхование ответственности</p>
+            <div class="service-item" style="padding: 40px;">
+                <h3 style="font-size: 1.8em; margin-bottom: 15px;">✅ Финансовая надежность</h3>
+                <p style="font-size: 1.4em;">Прибыль 50.1 млн руб., уплачено налогов 28.2 млн руб. Банковские гарантии и страхование ответственности</p>
             </div>
-            <div class="service-item">
-                <h3>⚡ Оперативность и качество</h3>
-                <p>100% контрактов исполнено в срок. Круглосуточная диспетчерская служба. Аварийные бригады 24/7</p>
+            <div class="service-item" style="padding: 40px;">
+                <h3 style="font-size: 1.8em; margin-bottom: 15px;">⚡ Оперативность и качество</h3>
+                <p style="font-size: 1.4em;">100% контрактов исполнено в срок. Круглосуточная диспетчерская служба. Аварийные бригады 24/7</p>
             </div>
-            <div class="service-item">
-                <h3>📋 Полный пакет документов</h3>
-                <p>Вся исполнительная документация в соответствии с требованиями. Электронный документооборот</p>
+            <div class="service-item" style="padding: 40px;">
+                <h3 style="font-size: 1.8em; margin-bottom: 15px;">📋 Полный пакет документов</h3>
+                <p style="font-size: 1.4em;">Вся исполнительная документация в соответствии с требованиями. Электронный документооборот</p>
             </div>
         </div>
 
@@ -851,7 +907,6 @@
                 <div class="contact-item">📍 Москва, Воронцовский пер., д. 5/7</div>
                 <div class="contact-item">📞 +7 (495) 222-41-84</div>
                 <div class="contact-item">✉️ comservis_2018@mail.ru</div>
-                <div class="contact-item" style="margin-top: 20px; font-size: 1.3em;">📱 +7 (966) 123-36-67 Николай Пухов</div>
             </div>
             <div style="text-align: center; margin-top: 50px;">
                 <h3 class="highlight">Создадим комфорт в вашем здании вместе!</h3>
