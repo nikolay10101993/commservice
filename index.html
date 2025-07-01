@@ -15,6 +15,8 @@
             font-family: 'Arial', sans-serif;
             overflow: hidden;
             background: #f5f5f5;
+            margin: 0;
+            padding: 0;
         }
 
         .presentation-container {
@@ -47,6 +49,12 @@
                 height: 95%;
                 padding: 40px;
                 border-radius: 10px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .presentation-container {
+                background: white;
             }
         }
 
@@ -232,6 +240,13 @@
             background: radial-gradient(circle, rgba(139, 195, 74, 0.1) 0%, transparent 70%);
             border-radius: 50%;
         }
+        
+        @media (max-width: 768px) {
+            .slide::before,
+            .slide::after {
+                display: none;
+            }
+        }
 
         .service-item {
             background: white;
@@ -381,13 +396,28 @@
             font-size: 1.1em;
         }
 
-        ul li:before {
+        /* Галочки только для списков в карточках услуг */
+        .card ul li:before {
             content: '✓';
             position: absolute;
             left: 0;
             color: #4CAF50;
             font-weight: bold;
             font-size: 1.2em;
+        }
+        
+        /* Для сопроводительного письма галочки через ::before */
+        .slide:nth-child(2) ul li {
+            padding-left: 40px;
+        }
+        
+        .slide:nth-child(2) ul li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 1.3em;
         }
 
         .highlight {
@@ -557,48 +587,268 @@
         /* Адаптивность для мобильных */
         @media (max-width: 768px) {
             .slide {
-                padding: 30px 20px;
+                padding: 20px 15px;
+                padding-bottom: 80px; /* Отступ для навигации */
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                border-radius: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
             }
             
             .title-slide h1 {
-                font-size: 2.5em;
+                font-size: 2em;
+                margin-bottom: 20px;
+            }
+            
+            .title-slide .subtitle {
+                font-size: 1.2em;
+            }
+            
+            .title-slide div[style*="padding: 30px"] {
+                padding: 20px !important;
+            }
+            
+            .title-slide p[style*="font-size: 1.8em"] {
+                font-size: 1.3em !important;
+            }
+            
+            .title-slide p[style*="font-size: 1.5em"] {
+                font-size: 1.1em !important;
             }
             
             .content-slide h2 {
-                font-size: 2em;
-                margin-bottom: 30px;
+                font-size: 1.8em;
+                margin-bottom: 25px;
             }
             
             .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+                min-height: auto;
+            }
+            
+            .card h3 {
+                font-size: 1.2em;
+            }
+            
+            .card p, .card li {
+                font-size: 1em;
+            }
+            
+            .icon-box {
+                width: 50px;
+                height: 50px;
+                font-size: 1.8em;
+                margin-bottom: 15px;
             }
             
             .stat-box {
                 min-width: auto;
-                padding: 25px;
+                padding: 20px;
+                margin-bottom: 10px;
             }
             
             .stat-number {
-                font-size: 2.5em;
+                font-size: 2em;
+            }
+            
+            .stat-box div:last-child {
+                font-size: 0.9em;
+            }
+            
+            .infographic-timeline {
+                gap: 10px;
+                padding: 0 10px;
+            }
+            
+            .infographic-timeline::before {
+                display: none;
             }
             
             .timeline-item {
-                width: 100px;
-                height: 100px;
+                width: 70px;
+                height: 70px;
+                border-width: 2px;
+            }
+            
+            .timeline-item .year {
+                font-size: 0.9em;
+            }
+            
+            .timeline-item .desc {
+                font-size: 0.6em;
+                padding: 0 5px;
             }
             
             .process-flow {
                 flex-direction: column;
-                gap: 30px;
+                gap: 20px;
             }
             
             .process-step:not(:last-child)::after {
                 content: '↓';
                 right: 50%;
                 top: auto;
-                bottom: -25px;
+                bottom: -18px;
                 transform: translateX(50%);
+            }
+            
+            .process-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8em;
+            }
+            
+            .process-step h4 {
+                font-size: 1em;
+            }
+            
+            .process-step p {
+                font-size: 0.9em;
+            }
+            
+            .service-item {
+                padding: 20px;
+                margin-bottom: 15px;
+                border-left-width: 5px !important;
+            }
+            
+            .service-item h3 {
+                font-size: 1.2em !important;
+            }
+            
+            .service-item p {
+                font-size: 1em !important;
+            }
+            
+            .client-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .client-card {
+                padding: 20px;
+            }
+            
+            .contact-info {
+                padding: 30px 20px;
+            }
+            
+            .contact-info h3 {
+                font-size: 1.5em;
+            }
+            
+            .contact-item {
+                font-size: 1.1em;
+            }
+            
+            .navigation {
+                bottom: 20px;
+                padding: 15px 20px;
+                gap: 15px;
+            }
+            
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .slide-indicator {
+                font-size: 14px;
+            }
+            
+            /* Специальные стили для сопроводительного письма на мобильных */
+            .slide div[style*="max-width: 1100px"] {
+                font-size: 1em !important;
+                line-height: 1.6 !important;
+            }
+            
+            .slide div[style*="max-width: 1100px"] h3 {
+                font-size: 1.2em !important;
+            }
+            
+            .slide div[style*="max-width: 1100px"] li {
+                padding-left: 25px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .slide:nth-child(2) ul li:before {
+                font-size: 1em;
+            }
+            
+            .slide div[style*="background: #f8f8f8"] {
+                padding: 20px !important;
+            }
+            
+            .slide div[style*="background: linear-gradient"][style*="padding: 35px"] {
+                padding: 20px !important;
+            }
+            
+            .slide div[style*="background: linear-gradient"] p[style*="font-size: 1.3em"] {
+                font-size: 1em !important;
+            }
+            
+            .slide div[style*="background: linear-gradient"] p[style*="font-size: 1.4em"] {
+                font-size: 1.1em !important;
+            }
+            
+            /* Адаптация круговой диаграммы */
+            .pie-chart {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .pie-chart::before {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .legend {
+                gap: 20px;
+            }
+            
+            .legend-item {
+                font-size: 0.9em;
+            }
+            
+            /* Адаптация для госзаказчиков */
+            .slide:nth-child(6) div[style*="flex-wrap: wrap"] {
+                flex-direction: column !important;
+            }
+            
+            .slide:nth-child(6) div[style*="min-width: 300px"] {
+                min-width: auto !important;
+                width: 100%;
+            }
+        }
+        
+        /* Специальные стили для очень маленьких экранов */
+        @media (max-width: 380px) {
+            .title-slide h1 {
+                font-size: 1.5em;
+            }
+            
+            .content-slide h2 {
+                font-size: 1.5em;
+            }
+            
+            .navigation {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .slide-indicator {
+                width: 100%;
+                text-align: center;
+                order: -1;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -628,19 +878,19 @@
                 
                 <ul style="list-style: none; padding-left: 0;">
                     <li style="padding-left: 40px; margin-bottom: 20px;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.3em;">✓</span> Работаем с 2018 года — без банкротств и претензий со стороны контролирующих органов
+                        Работаем с 2018 года — без банкротств и претензий со стороны контролирующих органов
                     </li>
                     <li style="padding-left: 40px; margin-bottom: 20px;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.3em;">✓</span> Финансовая устойчивость: госконтракты на ≈ <strong>492 млн ₽</strong>, чистая прибыль <strong>50 млн ₽</strong>, уплаченные налоги <strong>28 млн ₽</strong>
+                        Финансовая устойчивость: госконтракты на ≈ <strong>492 млн ₽</strong>, чистая прибыль <strong>50 млн ₽</strong>, уплаченные налоги <strong>28 млн ₽</strong>
                     </li>
                     <li style="padding-left: 40px; margin-bottom: 20px;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.3em;">✓</span> <strong>17 направлений услуг под одним договором:</strong> инженерные сети, HVAC, слаботочка, пожарная сигнализация, клининг, промышленный альпинизм и сезонное обслуживание крыш
+                        <strong>17 направлений услуг под одним договором:</strong> инженерные сети, HVAC, слаботочка, пожарная сигнализация, клининг, промышленный альпинизм и сезонное обслуживание крыш
                     </li>
                     <li style="padding-left: 40px; margin-bottom: 20px;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.3em;">✓</span> <strong>Прозрачная цена «all-inclusive»</strong> — в ставку уже входят труд, материалы и техника; пересчёт только при изменении объёма работ, без скрытых доплат
+                        <strong>Прозрачная цена «all-inclusive»</strong> — в ставку уже входят труд, материалы и техника; пересчёт только при изменении объёма работ, без скрытых доплат
                     </li>
                     <li style="padding-left: 40px; margin-bottom: 25px;">
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 1.3em;">✓</span> Нам доверяют <strong>государственные и коммерческие заказчики</strong>, в том числе <strong>Комитет по архитектуре Москвы и ФГБУ «Комбинат питания Кремлёвский»</strong>. При необходимости предоставим контакты для рекомендаций
+                        Нам доверяют <strong>государственные и коммерческие заказчики</strong>, в том числе <strong>Комитет по архитектуре Москвы и ФГБУ «Комбинат питания Кремлёвский»</strong>. При необходимости предоставим контакты для рекомендаций
                     </li>
                 </ul>
                 
@@ -827,8 +1077,8 @@
                 </div>
             </div>
             
-            <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px;">
-                <div style="text-align: center;">
+            <div style="display: flex; align-items: center; justify-content: space-around; margin-top: 40px; flex-wrap: wrap; gap: 40px;">
+                <div style="text-align: center; flex: 1; min-width: 300px;">
                     <h3 style="color: #4CAF50; margin-bottom: 20px;">Структура портфеля</h3>
                     <div class="pie-chart"></div>
                     <div class="legend">
@@ -842,7 +1092,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stats-container" style="flex-direction: column; margin: 0;">
+                <div class="stats-container" style="flex-direction: column; margin: 0; flex: 1; min-width: 300px;">
                     <div class="stat-box" style="background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);">
                         <div class="stat-number">491.8</div>
                         <div>млн руб. выполненных госконтрактов</div>
